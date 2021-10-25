@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-5.3.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- JDBC Database connection settings -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hibpra?useSSL=false</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+
+		<!-- configure connection pooling -->
+		<property name="connection.pool_size">10</property>
+		<!-- Configure dialect which is used to generate sql queries on desired 
+			database -->
+
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<!-- print the generated queries on the console -->
+
+		<property name="show_sql">true</property>
+		<!-- configure hgm22ddl.auto -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- map the resource hbm file -->
+		<mapping resource="employee.hbm.xml" />
+		
+		<!-- map annation config resource -->
+		<mapping class="com.entity.EmployeewithAnnotation" />
+
+	</session-factory>
+
+</hibernate-configuration>
