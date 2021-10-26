@@ -19,14 +19,14 @@ public class EmpWithHib5Test {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 
-		EmployeewithAnnotation emp = new EmployeewithAnnotation();
+		EmployeewithAnnotation emp = new EmployeewithAnnotation(); // transient
 		emp.setId(100);
 		emp.setName("Swati");
 		emp.setFirstName("SwatiFirstname");
 		emp.setLastName("SwatiLastName");
 		emp.setSalary("70000");
 
-		session.save(emp);
+		session.save(emp); // persistent
 		tx.commit();
 		session.close();
 
