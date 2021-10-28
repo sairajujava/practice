@@ -9,6 +9,8 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import com.entity.EmployeewithAnnotation;
+import com.entity.onetoone.Customer;
+import com.entity.onetoone.CustomerDetails;
 
 public class JavaConfig {
 
@@ -48,6 +50,9 @@ public class JavaConfig {
 				cfg.setProperties(prop);
 				// add all entity classes to config
 				cfg.addAnnotatedClass(EmployeewithAnnotation.class);
+				// OneToOne
+				cfg.addAnnotatedClass(Customer.class);
+				cfg.addAnnotatedClass(CustomerDetails.class);
 				
 
 				// map all the annatated entity classes
