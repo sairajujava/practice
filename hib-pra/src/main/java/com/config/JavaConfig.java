@@ -9,6 +9,10 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import com.entity.EmployeewithAnnotation;
+import com.entity.manytomany.Course;
+import com.entity.manytomany.Student;
+import com.entity.onetomany.Department;
+import com.entity.onetomany.Employee;
 import com.entity.onetoone.Customer;
 import com.entity.onetoone.CustomerDetails;
 
@@ -38,12 +42,11 @@ public class JavaConfig {
 				prop.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 				prop.put(Environment.SHOW_SQL, true);
 				prop.put(Environment.HBM2DDL_AUTO, "update");
-				// prop.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+				prop.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 				// add properties for secondlevel cache
 
-				// prop.put(Environment.USE_SECOND_LEVEL_CACHE, true);
-				// prop.put(Environment.CACHE_REGION_FACTORY,
-				// "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+				prop.put(Environment.USE_SECOND_LEVEL_CACHE, true);
+				prop.put(Environment.CACHE_REGION_FACTORY, "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 
 				// add all the properties to configuration class
 
@@ -53,7 +56,14 @@ public class JavaConfig {
 				// OneToOne
 				cfg.addAnnotatedClass(Customer.class);
 				cfg.addAnnotatedClass(CustomerDetails.class);
-				
+
+				// OneToMany
+				cfg.addAnnotatedClass(Department.class);
+				cfg.addAnnotatedClass(Employee.class);
+
+				// ManyToMany
+				cfg.addAnnotatedClass(Student.class);
+				cfg.addAnnotatedClass(Course.class);
 
 				// map all the annatated entity classes
 
