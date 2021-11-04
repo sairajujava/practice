@@ -6,10 +6,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.query.Query;
+
+
+@NamedQueries({
+	@NamedQuery(name ="selectAll",
+			query = "FROM EmployeewithAnnotation"
+			),
+	@NamedQuery(
+			name = "selectAllwithAlies",
+			query = "SELECT e.name FROM EmployeewithAnnotation e"
+			),
+	@NamedQuery(
+			name = "selectById",
+			query = "FROM EmployeewithAnnotation WHERE id=:e_id"
+			)
+})
+
+// call stored procedure
+
+@NamedNativeQueries({
+	@NamedNativeQuery(
+			
+				name = "getAllEmp",
+				query = "CALL get_emp()",
+				resultClass = EmployeewithAnnotation.class
+			
+			)
+}
+		)
 
 @Entity
 @Table(name = "emp")
