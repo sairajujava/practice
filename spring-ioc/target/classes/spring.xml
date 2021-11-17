@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                            http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+
+
+	<!-- annotation based DI -->
+
+	<!-- Enable the annotations -->
+	<context:annotation-config />
+	<!-- Enable sterio type annotations -->
+	<context:component-scan base-package="com" />
+	
+	<!-- Enabling the Transactions -->
+	<tx:annotation-driven/>
+	
+	<!-- configure datSource -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/hibpra?useSSL=false" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+
+	</bean>
+	
+	<!-- configure SessionFactory -->
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" >
+		
+				<!-- configure all the entity beans -->
+				
+			<list>
+				<value>com.springHibernate.entity</value>
+			</list>
+		</property>
+	
+	
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				 <prop key="hibernate.hbm2ddl.auto">update</prop>  
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<bean id="transactionManager"  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+ 
+    <bean id="persistenceExceptionTranslationPostProcessor"
+        class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+        
+	<!-- configure Hibernate Template -->
+	
+	<bean id="hibTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="checkWriteOperations" value="false"></property> 
+   		 <property name="sessionFactory" ref="sessionFactory"></property>  
+    </bean>  
+	
+	
+	<bean id="emp" class="com.springHibernate.dao.EmployeeDao">
+	
+	</bean>
+
+
+</beans>
